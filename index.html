@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ICU E-Locker Self Checking</title>
+  <title>圖片顏色分析工具</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -22,15 +22,43 @@
       color: blue;
       text-decoration: underline;
     }
+    .instructions {
+      text-align: left;
+      margin: 0 auto;
+      max-width: 600px;
+      font-size: 16px;
+    }
+    .instructions img {
+      display: block;
+      margin: 10px auto;
+      max-width: 100%;
+    }
   </style>
 </head>
 <body>
-  <h1>ICU E-Locker Self Checking</h1>
+  <h1>圖片顏色分析工具</h1>
+  
+  <!-- 使用方法 -->
+  <div class="instructions">
+    <h2>使用方法：</h2>
+    <p>1. 點擊「選擇文件」按鈕，並上傳需要檢測的圖片。</p>
+    <p>2. 系統將自動分析圖片中的顏色，並根據顏色的占比返回結果。</p>
+    <p>3. 如果檢測到問題，請參考顯示的提示和網站進行修正。</p>
+    <h2>示例圖片：</h2>
+    <img src="door page.jpg" alt="示例圖片">
+  </div>
+
+  <!-- 文件上傳按鈕 -->
   <input type="file" id="imageInput" accept="image/*">
+
+  <!-- 隱藏的畫布，用於處理圖片 -->
   <canvas id="canvas" style="display: none;"></canvas>
+  
+  <!-- 結果輸出 -->
   <div id="result"></div>
 
   <script>
+    // 驗證圖片顏色的功能代碼
     document.getElementById('imageInput').addEventListener('change', function (event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -86,12 +114,12 @@
         } else if (greenRatio > yellowRatio && greenRatio > blueRatio) {
           resultDiv.innerHTML = `
             <span class="error">Item list被清除，請參考以下網站作出更正：</span><br>
-            <a href="https://example.com/green-fix" target="_blank">https://drive.google.com/file/d/1rdYZk8G8hTAanl82lYgUorKdr72-G36n/view?usp=drive_link</a>
+            <a href="https://drive.google.com/file/d/1rdYZk8G8hTAanl82lYgUorKdr72-G36n/view?usp=drive_link" target="_blank">https://drive.google.com/file/d/1rdYZk8G8hTAanl82lYgUorKdr72-G36n/view?usp=drive_link</a>
           `;
         } else if (blueRatio > yellowRatio && blueRatio > greenRatio) {
           resultDiv.innerHTML = `
             <span class="error">Door has been locked<br>請參考以下網頁作出更正：</span><br>
-            <a href="https://example.com/blue-fix" target="_blank">https://drive.google.com/file/d/1vNq4RsEfWH9rGR5XzIMaS_t1140nXxyN/view?usp=drive_link</a>
+            <a href="https://drive.google.com/file/d/1vNq4RsEfWH9rGR5XzIMaS_t1140nXxyN/view?usp=drive_link" target="_blank">https://drive.google.com/file/d/1vNq4RsEfWH9rGR5XzIMaS_t1140nXxyN/view?usp=drive_link</a>
           `;
         } else {
           resultDiv.innerHTML = '圖片中無法檢測到主要顏色。';
